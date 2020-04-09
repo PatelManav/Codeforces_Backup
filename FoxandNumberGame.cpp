@@ -11,10 +11,16 @@ void Input(){
     cin >> N, arr.clear(), arr.resize(N);
     for(auto &z:arr)
         cin >> z;
+    sort(arr.begin(), arr.end());
 }
 
 void Solve(){
+    ll ans = arr[0];
 
+    for(ll i = 1; i < N; i++)
+        ans = __gcd(ans, arr[i]);
+
+    cout << ans*N << "\n";
 }
 
 int main(){
