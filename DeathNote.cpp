@@ -2,20 +2,23 @@
 #include <bits/stdc++.h>
 #define ll long long
 #define MOD 1000000007
-#define endl '\n'
 using namespace std;
 
-ll N;
+ll N, M;
 vector<ll> arr;
 
 void Input(){
-    cin >> N, arr.clear(), arr.resize(N);
-    for(ll i = 0; i < N; i++)
-        cin >> arr[i];
+    cin >> N >> M, arr.clear(), arr.resize(N);
+    for(auto &z:arr)
+        cin >> z;
 }
 
 void Solve(){
-
+    ll ans = 0;
+    for(ll i = 0; i < N; i++){
+        cout << ((ans+arr[i])/M) << " ";
+        ans = (ans+arr[i])%M;
+    }
 }
 
 int main(){
