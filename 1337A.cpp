@@ -17,33 +17,16 @@
 using namespace std;
 
 ll N;
-ll x, y, x_1, y_1, x_2, y_2;
 ll arr[size_1d];
 
 void Input() {
 	N = 4;
 	for (ll i = 0; i < N; i++)
 		cin >> arr[i];
-	cin >> x >> y >> x_1 >> y_1 >> x_2 >> y_2;
 }
 
 void Solve() {
-	x_1 -= x, x_2 -= x;
-	y_2 -= y, y_1 -= y;
-
-	if (max(arr[0], arr[1]) == 0 and max(arr[2], arr[3]) == 0) {
-		cout << "Yes\n";
-	}
-	else if ((max(arr[0], arr[1]) != 0 and x_1 == x_2) or (max(arr[2], arr[3]) != 0 and y_1 == y_2)) {
-		cout << "No\n";
-	}
-	else if ((arr[1] - arr[0]) >= x_1 and (arr[1] - arr[0]) <= x_2 and ((arr[3] - arr[2]) >= y_1) and (arr[3] - arr[2] <= y_2)) {
-		cout << "Yes\n";
-	}
-	else {
-		cout << "No\n";
-	}
-
+	cout << arr[1] << " " << arr[2] << " " << arr[2] << endl;
 }
 
 int main() {

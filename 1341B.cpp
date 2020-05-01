@@ -16,34 +16,33 @@
 
 using namespace std;
 
-ll N;
-ll x, y, x_1, y_1, x_2, y_2;
-ll arr[size_1d];
+ll N, K;
+ll arr[1000000], arr_peak[1000000];
 
 void Input() {
-	N = 4;
+	cin >> N >> K;
 	for (ll i = 0; i < N; i++)
 		cin >> arr[i];
-	cin >> x >> y >> x_1 >> y_1 >> x_2 >> y_2;
 }
 
 void Solve() {
-	x_1 -= x, x_2 -= x;
-	y_2 -= y, y_1 -= y;
-
-	if (max(arr[0], arr[1]) == 0 and max(arr[2], arr[3]) == 0) {
-		cout << "Yes\n";
+	arr_peak[0] = 0;
+	for (ll i = 1; i < N - 1; i++) {
+		if (arr[i] > arr[i + 1] and arr[i] > arr[i - 1])
+			arr_peak[i] = arr_peak[i - 1] + 1;
+		else
+			arr_peak[i] = arr_peak[i - 1];
 	}
-	else if ((max(arr[0], arr[1]) != 0 and x_1 == x_2) or (max(arr[2], arr[3]) != 0 and y_1 == y_2)) {
-		cout << "No\n";
+	ll ans = 0;
+	ll idx = 0;
+	for (ll i = 0; i < N; i++) {
+		if ((i + K - 1) < N) {
+			if (ans < (arr_peak[max(i + K - 2, i)] - arr_peak[i]))
+				idx = i;
+			ans = max(ans, arr_peak[max(i + K - 2, i)] - arr_peak[i]);
+		}
 	}
-	else if ((arr[1] - arr[0]) >= x_1 and (arr[1] - arr[0]) <= x_2 and ((arr[3] - arr[2]) >= y_1) and (arr[3] - arr[2] <= y_2)) {
-		cout << "Yes\n";
-	}
-	else {
-		cout << "No\n";
-	}
-
+	cout << ans + 1 << " " <<  idx + 1 << endl;
 }
 
 int main() {

@@ -17,33 +17,21 @@
 using namespace std;
 
 ll N;
-ll x, y, x_1, y_1, x_2, y_2;
 ll arr[size_1d];
 
 void Input() {
-	N = 4;
+	N = 5;
 	for (ll i = 0; i < N; i++)
 		cin >> arr[i];
-	cin >> x >> y >> x_1 >> y_1 >> x_2 >> y_2;
 }
 
 void Solve() {
-	x_1 -= x, x_2 -= x;
-	y_2 -= y, y_1 -= y;
-
-	if (max(arr[0], arr[1]) == 0 and max(arr[2], arr[3]) == 0) {
+	ll mn_g = arr[0] * (abs(arr[1] - arr[2])), mx_g = arr[0] * (abs(arr[1] + arr[2]));
+	ll mn_p = abs(arr[3] - arr[4]), mx_p = arr[3] + arr[4];
+	if ((mn_g >= mn_p and mn_g <= mx_p) or (mx_g >= mn_p and mx_g <= mx_p) or (mn_p >= mn_g and mn_p <= mx_g) or (mx_p >= mn_g and mx_p <= mx_g))
 		cout << "Yes\n";
-	}
-	else if ((max(arr[0], arr[1]) != 0 and x_1 == x_2) or (max(arr[2], arr[3]) != 0 and y_1 == y_2)) {
+	else
 		cout << "No\n";
-	}
-	else if ((arr[1] - arr[0]) >= x_1 and (arr[1] - arr[0]) <= x_2 and ((arr[3] - arr[2]) >= y_1) and (arr[3] - arr[2] <= y_2)) {
-		cout << "Yes\n";
-	}
-	else {
-		cout << "No\n";
-	}
-
 }
 
 int main() {
