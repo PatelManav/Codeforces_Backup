@@ -17,51 +17,36 @@
 
 using namespace std;
 
+ll n, k;
+pll arr[size_1d];
+
 bool MC(pll p1, pll p2) {
-    return p1.f < p2.f;
+    return p1.f > p2.f;
 }
 
-ll n, d;
-pll arr[size_1d];
-map<ll, ll> mp;
-
 void Input() {
-    cin >> n >> d;
+    cin >> n >> k;
     for (ll i = 0; i < n; i++) {
-        cin >> arr[i].f >> arr[i].s;
+        cin >> arr[i].f;
+        arr[i].s = i;
     }
     sort(arr, arr + n, MC);
 }
 
 void Solve() {
-    for (ll i = 0; i < n; i++) {
-        mp[i] = mp[i - 1] + arr[i].s;
-    }
-    ll ans = 0;
-    ll st = 0, ed = n - 1;
-    for (ll i = 0; i < n; i++) {
-        ll st = i, ed = n - 1;
-        while (st <= ed) {
-            ll mid = st + (ed - st) / 2;
-            if (arr[mid].f - arr[i].f < d) {
-                ans = max(ans, mp[mid] - mp[i - 1]);
-                st = mid + 1;
-            }
-            else {
-                ed = mid - 1;
-            }
-        }
-    }
-    cout << ans;
+    ll mn = arr[k - 1].f;
+    cout << mn << endl;
+    for (ll i = 0; i < k; i++)
+        cout << arr[i].s + 1 << " ";
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-#ifndef ONLINE_JUDGE
+//#ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-#endif
+//#endif
 
     ll T = 1;
     //cin >> T;
