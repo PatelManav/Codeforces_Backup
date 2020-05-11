@@ -17,22 +17,49 @@
 
 using namespace std;
 
-ll n;
+ll n, k;
+ll arr[size_1d];
+
+bool MC(ll a, ll b) {
+	return a % 10 > b % 10;
+}
 
 void Input() {
-	cin >> n;
+	cin >> n >> k;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
+	sort(arr, arr + n, MC);
 }
 
 void Solve() {
-	for (ll i = 0; i <= (n / 1234567); i++) {
-		for (ll j = 0; j <= (n / 123456); j++) {
-			if ((i * 1234567 + j * 123456) <= n and (n - i * 1234567 - j * 123456) % 1234 == 0) {
-				cout << "YES";
-				return;
-			}
+	for (ll i = 0; i < n; i++) {
+		if (arr[i] == 100)
+			continue;
+		ll d = min(k, 10 - (arr[i] % 10));
+		arr[i] += d;
+		k -= d;
+		if (k <= 0)
+			break;
+	}
+
+	if (k > 0) {
+		for (ll i = 0; i < n; i++) {
+			if (arr[i] == 100)
+				continue;
+			ll d = min(k, 100 - arr[i]);
+			arr[i] += d;
+			k -= d;
+			if (k <= 0)
+				break;
 		}
 	}
-	cout << "NO";
+
+	ll ans = 0;
+	for (ll i = 0; i < n; i++)
+		ans += arr[i] / 10;
+
+	cout << ans;
+
 }
 
 int main() {

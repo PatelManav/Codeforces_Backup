@@ -17,22 +17,30 @@
 
 using namespace std;
 
-ll n;
+ll n, k;
+ll arr[size_1d];
+
+ll digit(ll x) {
+	ll ans = 0;
+	while (x > 0) {
+		if (x % 10 == 4 or x % 10 == 7)
+			ans++;
+		x /= 10;
+	}
+	return ans;
+}
 
 void Input() {
-	cin >> n;
+	cin >> n >> k;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
 }
 
 void Solve() {
-	for (ll i = 0; i <= (n / 1234567); i++) {
-		for (ll j = 0; j <= (n / 123456); j++) {
-			if ((i * 1234567 + j * 123456) <= n and (n - i * 1234567 - j * 123456) % 1234 == 0) {
-				cout << "YES";
-				return;
-			}
-		}
-	}
-	cout << "NO";
+	ll ans = 0;
+	for (ll i = 0; i < n; i++)
+		ans += (k >= digit(arr[i]));
+	cout << ans;
 }
 
 int main() {

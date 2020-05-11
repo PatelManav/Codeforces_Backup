@@ -18,21 +18,27 @@
 using namespace std;
 
 ll n;
+vll arr;
+
+void Fun(ll num, ll f, ll s) {
+	if (num > 100000000000ll)
+		return;
+	if (f == s)
+		arr.push_back(num);
+	Fun(num * 10 + 4, f + 1, s);
+	Fun(num * 10 + 7, f, s + 1);
+}
 
 void Input() {
 	cin >> n;
+	Fun(0, 0, 0);
+	sort(all(arr));
 }
 
 void Solve() {
-	for (ll i = 0; i <= (n / 1234567); i++) {
-		for (ll j = 0; j <= (n / 123456); j++) {
-			if ((i * 1234567 + j * 123456) <= n and (n - i * 1234567 - j * 123456) % 1234 == 0) {
-				cout << "YES";
-				return;
-			}
-		}
-	}
-	cout << "NO";
+	ll i = 0;
+	for (; arr[i] < n; i++);
+	cout << arr[i];
 }
 
 int main() {

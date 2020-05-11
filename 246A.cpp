@@ -24,15 +24,14 @@ void Input() {
 }
 
 void Solve() {
-	for (ll i = 0; i <= (n / 1234567); i++) {
-		for (ll j = 0; j <= (n / 123456); j++) {
-			if ((i * 1234567 + j * 123456) <= n and (n - i * 1234567 - j * 123456) % 1234 == 0) {
-				cout << "YES";
-				return;
-			}
-		}
+	if (n <= 2) {
+		cout << -1;
+		return;
 	}
-	cout << "NO";
+
+	for (ll i = n; i >= 1; i--)
+		cout << i << " ";
+
 }
 
 int main() {
