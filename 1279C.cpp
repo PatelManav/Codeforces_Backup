@@ -18,20 +18,31 @@
 
 using namespace std;
 
-ll n, d;
+ll n, m;
+ll arr[size_1d], brr[size_1d];
 
 void Input() {
-	cin >> n >> d;
+	cin >> n >> m;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
+	for (ll i = 0; i < m; i++)
+		cin >> brr[i];
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
+	map<ll, ll> mp;
+	ll pref = inf, ans = 0;
+	for (ll i = 0; i < m; i++) mp[brr[i]] = i + 1;
+	for (ll i = n - 1; i >= 0; i--) {
+		if (mp[arr[i]] == 0) continue;
+		if (mp[arr[i]] < pref) {
+			ans += 2 * (i - (mp[arr[i]] - 1)) + 1;
+			if (pref == inf) ans += (m - mp[arr[i]]);
+			else ans += (pref - mp[arr[i]] - 1);
+			pref = mp[arr[i]];
 		}
 	}
-	cout << "NO\n";
+	cout << ans << endl;
 }
 
 int main() {

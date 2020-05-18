@@ -18,20 +18,22 @@
 
 using namespace std;
 
-ll n, d;
+ll a, b, c, r;
 
 void Input() {
-	cin >> n >> d;
+	cin >> a >> b >> c >> r;
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
-		}
-	}
-	cout << "NO\n";
+	ll s1 = c - r, s2 = c + r;
+	ll t = min(a, b);
+	b = max(a, b);
+	a = t;
+	if (s1 >= a and s2 <= b) cout << (b - a) - (s2 - s1) << endl;
+	else if (s1 > b or s2 < a) cout << b - a << endl;
+	else if (s1 >= a) cout << (b - a) - (b - s1) << endl;
+	else if (s2 <= b) cout << (b - a) - (s2 - a) << endl;
+	else if (s1 <= a and s2 >= b) cout << 0 << endl;
 }
 
 int main() {

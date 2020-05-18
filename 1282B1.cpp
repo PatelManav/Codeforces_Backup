@@ -18,20 +18,52 @@
 
 using namespace std;
 
-ll n, d;
+ll n, p, k;
+ll arr[size_1d];
 
 void Input() {
-	cin >> n >> d;
+	cin >> n >> p >> k;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
+	sort(arr, arr + n);
+	ll ans1 = 0;
+	ll P = p;
+	bool flg = false;
+	if (p >= arr[0]) {
+		ans1++;
+		p -= arr[0];
+	}
+	for (ll i = 2; i < n; i += 2) {
+		if (i == n - 1) flg = true;
+		if (arr[i] <= p) {
+			p -= arr[i];
+			ans1 += 2;
+		}
+		else {
+			if (p >= min(arr[i], arr[i - 1])) ans1++;
+			break;
 		}
 	}
-	cout << "NO\n";
+	if (!flg and p >= arr[n - 1]) ans1++;
+
+	ll ans2 = 0;
+	flg = false;
+	for (ll i = 1; i < n; i += 2) {
+		if (i == n - 1) flg = true;
+		if (arr[i] <= P) {
+			P -= arr[i];
+			ans2 += 2;
+		}
+		else {
+			if (P >= min(arr[i], arr[i - 1])) ans2++;
+			break;
+		}
+	}
+	if (!flg and P >= arr[n - 1]) ans2++;
+	cout << max(ans1, ans2) << endl;
 }
 
 int main() {

@@ -18,20 +18,32 @@
 
 using namespace std;
 
-ll n, d;
+ll n, k;
+string str[1500];
 
 void Input() {
-	cin >> n >> d;
+	cin >> n >> k;
+	for (ll i = 0; i < n; i++)
+		cin >> str[i];
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
+	map<string, ll> mp;
+	ll ans = 0;
+	for (ll i = 0; i < n; i++) mp[str[i]]++;
+	for (ll i = 0; i < n; i++) {
+		for (ll j = i + 1; j < n; j++) {
+			string osf = "";
+			for (ll p = 0; p < k; p++) {
+				if (str[i][p] == str[j][p]) osf += str[i][p];
+				else if ((str[i][p] == 'S' and str[j][p] == 'E') or (str[j][p] == 'S' and str[i][p] == 'E')) osf += 'T';
+				else if ((str[i][p] == 'E' and str[j][p] == 'T') or (str[j][p] == 'E' and str[i][p] == 'T')) osf += 'S';
+				else osf += 'E';
+			}
+			ans += mp[osf];
 		}
 	}
-	cout << "NO\n";
+	cout << ans / 3 << endl;
 }
 
 int main() {
@@ -43,7 +55,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

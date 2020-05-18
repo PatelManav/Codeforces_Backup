@@ -18,20 +18,40 @@
 
 using namespace std;
 
-ll n, d;
+ll n;
 
 void Input() {
-	cin >> n >> d;
+	cin >> n;
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
+	map<ll, ll> mp;
+	bool flg = true;
+	ll daugh = 0;
+	for (ll j = 1; j <= n; j++) {
+		ll d; cin >> d;
+		ll arr[d];
+		for (ll i = 0; i < d; i++) cin >> arr[i];
+		bool t_flg = false;
+		for (ll i = 0; i < d; i++) {
+			if (mp[arr[i]] == 0) {
+				t_flg = true;
+				mp[arr[i]] = 1;
+				break;
+			}
 		}
+		if (!t_flg) daugh = j;
+		flg &= t_flg;
 	}
-	cout << "NO\n";
+	if (flg) cout << "OPTIMAL\n";
+	else {
+		cout << "IMPROVE\n";
+		for (ll i = 1; i <= n; i++)
+			if (mp[i] == 0) {
+				cout << daugh << " " << i << endl;
+				return;
+			}
+	}
 }
 
 int main() {

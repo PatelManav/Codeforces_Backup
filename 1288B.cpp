@@ -18,20 +18,20 @@
 
 using namespace std;
 
-ll n, d;
+ll a, b;
 
 void Input() {
-	cin >> n >> d;
+	cin >> a >> b;
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
-		}
+	b++;
+	ll len = 0;
+	while (b > 0) {
+		len++;
+		b /= 10;
 	}
-	cout << "NO\n";
+	cout << a*(len - 1) << endl;
 }
 
 int main() {

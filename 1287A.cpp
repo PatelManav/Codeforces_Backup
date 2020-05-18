@@ -18,20 +18,23 @@
 
 using namespace std;
 
-ll n, d;
-
+ll n;
+string str;
 void Input() {
-	cin >> n >> d;
+	cin >> n >> str;
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
-		}
+	ll ans = 0, cnt = 0;
+	bool flg = false;
+	for (ll i = 0; i < n; i++) {
+		if (str[i] == 'A') flg = true;
+		if (!flg) continue;
+		if (str[i] == 'P') cnt++;
+		else ans = max(cnt, ans), cnt = 0;
 	}
-	cout << "NO\n";
+	ans = max(cnt, ans);
+	cout << ans << endl;
 }
 
 int main() {

@@ -18,20 +18,30 @@
 
 using namespace std;
 
-ll n, d;
+ll n, p, k;
+ll arr[size_1d];
 
 void Input() {
-	cin >> n >> d;
+	cin >> n >> p >> k;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
-			return;
+	sort(arr, arr + n);
+	ll prev = 0, ans = 0;
+	for (ll i = 0; i <= k; i++) {
+		if (prev > p) break;
+		ll su = prev, cur = i;
+		for (ll j = i + k - 1; j < n; j += k) {
+			su += arr[j];
+			if (su <= p) cur += k;
+			else break;
 		}
+		ans = max(cur, ans);
+		prev += arr[i];
 	}
-	cout << "NO\n";
+	cout << ans << endl;
 }
 
 int main() {

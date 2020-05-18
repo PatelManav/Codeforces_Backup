@@ -18,20 +18,23 @@
 
 using namespace std;
 
-ll n, d;
-
+string a, b, c;
 void Input() {
-	cin >> n >> d;
+	cin >> a >> b >> c;
 }
 
 void Solve() {
-	for (ll i = 0; i <= sqrt(d); i++) {
-		if (i + (d + i) / (i + 1) <= n) {
-			cout << "YES\n";
+	for (ll i = 0; i < c.size(); i++) {
+		if (a[i] == c[i]) swap(b[i], c[i]);
+		else if (b[i] == c[i]) swap(a[i], c[i]);
+		else {
+			cout << "NO\n";
 			return;
 		}
 	}
-	cout << "NO\n";
+
+	if (a == b) cout << "YES\n";
+	else cout << "NO\n";
 }
 
 int main() {
