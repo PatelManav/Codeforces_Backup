@@ -19,31 +19,24 @@
 using namespace std;
 
 ll n, m;
-ll arr[size_1d], brr[size_1d];
 
 void Input() {
-	cin >> n;
-	for (ll i = 0; i < n; i++)
-		cin >> arr[i];
-	cin >> m;
-	for (ll i = 0; i < m; i++)
-		cin >> brr[i];
+	cin >> n >> m;
+}
+
+ll FastExp(ll a, ll b) {
+	ll ans = 1;
+	while (b) {
+		if (b & 1)
+			ans = (ans * a) % MOD;
+		a =	(a * a) % MOD;
+		b >>= 1;
+	}
+	return (ans % MOD);
 }
 
 void Solve() {
-	ll o_1, e_1, o_2, e_2;
-	o_2 = o_1 = e_1 = e_2 = 0;
-	for (ll i = 0; i < n; i++) {
-		if (arr[i] % 2 == 0) e_1++;
-		else o_1++;
-	}
-	for (ll i = 0; i < m; i++) {
-		if (brr[i] % 2 == 0) e_2++;
-		else o_2++;
-	}
-
-
-	cout << o_2*o_1 + e_2*e_1 << endl;
+	cout << FastExp((FastExp(2, m) - 1) % MOD, n) << endl;
 }
 
 int main() {
@@ -55,7 +48,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

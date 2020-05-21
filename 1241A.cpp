@@ -18,32 +18,16 @@
 
 using namespace std;
 
-ll n, m;
-ll arr[size_1d], brr[size_1d];
+ll n;
 
 void Input() {
 	cin >> n;
-	for (ll i = 0; i < n; i++)
-		cin >> arr[i];
-	cin >> m;
-	for (ll i = 0; i < m; i++)
-		cin >> brr[i];
 }
 
 void Solve() {
-	ll o_1, e_1, o_2, e_2;
-	o_2 = o_1 = e_1 = e_2 = 0;
-	for (ll i = 0; i < n; i++) {
-		if (arr[i] % 2 == 0) e_1++;
-		else o_1++;
-	}
-	for (ll i = 0; i < m; i++) {
-		if (brr[i] % 2 == 0) e_2++;
-		else o_2++;
-	}
-
-
-	cout << o_2*o_1 + e_2*e_1 << endl;
+	if (n == 1) cout << 3 << endl;
+	else if (n == 2) cout << 2 << endl;
+	else cout << n % 2 << endl;
 }
 
 int main() {

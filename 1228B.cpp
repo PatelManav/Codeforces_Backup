@@ -19,31 +19,57 @@
 using namespace std;
 
 ll n, m;
-ll arr[size_1d], brr[size_1d];
+ll arr[size_2d][size_2d] = {0}, r[size_2d], c[size_2d];
 
 void Input() {
-	cin >> n;
+	cin >> n >> m;
 	for (ll i = 0; i < n; i++)
-		cin >> arr[i];
-	cin >> m;
+		cin >> r[i];
 	for (ll i = 0; i < m; i++)
-		cin >> brr[i];
+		cin >> c[i];
+}
+
+ll FastExp(ll a, ll b) {
+	ll ans = 1;
+	while (b) {
+		if (b & 1)
+			ans = (ans * a) % MOD;
+		a =	(a * a) % MOD;
+		b >>= 1;
+	}
+	return (ans % MOD);
 }
 
 void Solve() {
-	ll o_1, e_1, o_2, e_2;
-	o_2 = o_1 = e_1 = e_2 = 0;
 	for (ll i = 0; i < n; i++) {
-		if (arr[i] % 2 == 0) e_1++;
-		else o_1++;
+		for (ll j = 0; j < r[i]; j++) {
+			arr[i][j] = 1;
+		}
+		if (r[i] < m) arr[i][r[i]] = -1;
 	}
 	for (ll i = 0; i < m; i++) {
-		if (brr[i] % 2 == 0) e_2++;
-		else o_2++;
+		for (ll j = 0; j < c[i]; j++) {
+			if (arr[j][i] == -1) {
+				cout << 0 << endl;
+				return;
+			}
+			arr[j][i] = 1;
+		}
+		if (c[i] < n) {
+			if (arr[c[i]][i] == 1) {
+				cout << 0 << endl;
+				return;
+			}
+			arr[c[i]][i] = -1;
+		}
 	}
-
-
-	cout << o_2*o_1 + e_2*e_1 << endl;
+	ll u = 0;
+	for (ll i = 0; i < n; i++) {
+		for (ll j = 0; j < m; j++) {
+			if (arr[i][j] == 0) u++;
+		}
+	}
+	cout <<	FastExp(2, u);
 }
 
 int main() {
@@ -55,7 +81,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

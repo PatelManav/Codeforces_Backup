@@ -18,32 +18,22 @@
 
 using namespace std;
 
-ll n, m;
-ll arr[size_1d], brr[size_1d];
+string str1, str2;
 
 void Input() {
-	cin >> n;
-	for (ll i = 0; i < n; i++)
-		cin >> arr[i];
-	cin >> m;
-	for (ll i = 0; i < m; i++)
-		cin >> brr[i];
+	cin >> str1 >> str2;
 }
 
 void Solve() {
-	ll o_1, e_1, o_2, e_2;
-	o_2 = o_1 = e_1 = e_2 = 0;
-	for (ll i = 0; i < n; i++) {
-		if (arr[i] % 2 == 0) e_1++;
-		else o_1++;
+	for (ll i = 0; i < str1.size(); i++) {
+		for (ll j = 0; j < str2.size(); j++) {
+			if (str1[i] == str2[j]) {
+				cout << "YES\n";
+				return;
+			}
+		}
 	}
-	for (ll i = 0; i < m; i++) {
-		if (brr[i] % 2 == 0) e_2++;
-		else o_2++;
-	}
-
-
-	cout << o_2*o_1 + e_2*e_1 << endl;
+	cout << "NO\n";
 }
 
 int main() {
