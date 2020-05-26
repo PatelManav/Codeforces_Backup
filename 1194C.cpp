@@ -19,24 +19,35 @@
 
 using namespace std;
 
-ll n;
+string s, t, p;
 
 void Input() {
-	cin >> n;
+	cin >> s >> t >> p;
 }
 
 void Solve() {
-	vector<pll> arr;
-	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+	ll cnt_s[26] = {0}, cnt_t[26] = {0}, cnt_p[26] = {0};
+	for (ll i = 0; i < s.size(); i++)cnt_s[s[i] - 'a']++;
+	for (ll i = 0; i < t.size(); i++)cnt_t[t[i] - 'a']++;
+	for (ll i = 0; i < p.size(); i++)cnt_p[p[i] - 'a']++;
+	ll i = 0, j = 0;
+	while (i < s.size()) {
+		if (j == t.size() or cnt_t[s[i] - 'a'] == 0) {
+			cout << "NO\n";
+			return;
+		}
+
+		if (s[i] == t[j])i++;
+		j++;
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+
+	for (ll i = 0; i < t.size(); i++) {
+		if (cnt_t[t[i] - 'a'] > cnt_p[t[i] - 'a'] + cnt_s[t[i] - 'a']) {
+			cout << "NO\n";
+			return;
+		}
+	}
+	cout << "YES\n";
 }
 
 int main() {

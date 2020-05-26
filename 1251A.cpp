@@ -19,24 +19,21 @@
 
 using namespace std;
 
-ll n;
-
+string str;
 void Input() {
-	cin >> n;
+	cin >> str;
 }
 
 void Solve() {
-	vector<pll> arr;
-	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+	map<char, ll>mp;
+	for (ll i = 0; i < str.size();) {
+		char ch = str[i];
+		ll t = 0;
+		for (i; i < str.size() and str[i] == ch; i++)t++;
+		if (t % 2)mp[ch] = 1;
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+	for (auto it : mp)cout << it.f;
+	cout << endl;
 }
 
 int main() {

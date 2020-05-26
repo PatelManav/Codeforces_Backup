@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 #include <stdio.h>
 #include <ctype.h>
+#pragma GCC optimize ("Ofast")
 #define ll long long
 #define MOD 1000000007
 #define endl "\n"
@@ -28,44 +29,25 @@ void Input() {
 }
 
 void Solve() {
-	ll ans = 0;
-	vll days;
-	days.pb(0);
-	map<ll, ll> mp, day;
-	ll prev = 0;
-	for (ll i = 0; i < n; i++) {
-		if (mp.empty()) {
-			if (ans != 0)
-				days.pb(i - prev);
-			prev = i;
-			ans++;
-			day.clear();
-		}
-
-		if (day[arr[i]] == 1) {
-			cout << -1;
-			return;
-		}
-
-		if (arr[i] < 0) {
-			if (mp[-arr[i]] == 0) {
-				cout << -1;
-				return;
-			}
-			mp.erase(-arr[i]);
-		}
-		else {
-			mp[arr[i]] = day[arr[i]] = 1;
-		}
+	ll ans[n + 1] = {0};
+	ans[1] = arr[0];
+	for (ll i = 1; i < n; i++) {
+		if (arr[i] != arr[i - 1])ans[i + 1] = arr[i];
 	}
-	if (!mp.empty()) {
-		cout << -1;
-		return;
-	}
-	days.pb(n - prev);
-	cout << ans << endl;
-	for (ll i = 1; i < days.size(); i++)
-		cout << days[i] << " ";
+	map<ll, ll>mp;
+	for (ll i = 1; i <= n; i++)mp[i] = 1;
+	for (ll i = 1; i <= n; i++)mp[ans[i]] = 0;
+	vll idx;
+	for (auto it : mp)if (it.s == 1)idx.pb(it.f);
+	sort(all(idx));
+	ll t = 0;
+	for (ll i = 1; i <= n; i++)if (ans[i] == 0)ans[i] = idx[t], t++;
+	ll chk[n] = {0};
+	chk[0] = ans[1];
+	for (ll i = 1; i < n; i++)chk[i] = max(chk[i - 1], ans[i + 1]);
+	for (ll i = 0; i < n; i++)if (chk[i] != arr[i]) {cout << -1 << endl; return;}
+	for (ll i = 1; i <= n; i++)cout << ans[i] << " ";
+	cout << endl;
 }
 
 int main() {
@@ -77,7 +59,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	//cin >> T;
+	cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

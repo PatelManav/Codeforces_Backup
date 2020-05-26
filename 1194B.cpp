@@ -19,24 +19,35 @@
 
 using namespace std;
 
-ll n;
+ll n, m;
 
 void Input() {
-	cin >> n;
+	cin >> n >> m;
 }
 
 void Solve() {
-	vector<pll> arr;
+	vector<string> arr;
 	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+		string str;
+		cin >> str;
+		arr.pb(str);
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+
+	ll a[n] = {0}, b[m] = {0};
+	for (ll i = 0; i < n; i++) {
+		for (ll j = 0; j < m; j++) {
+			if (arr[i][j] == '.') a[i]++, b[j]++;
+		}
+	}
+	ll ans = INT_MAX;
+	for (ll i = 0; i < n; i++) {
+		for (ll j = 0; j < m; j++) {
+			ll d = a[i] + b[j];
+			if (arr[i][j] == '.')d--;
+			ans = min(ans, d);
+		}
+	}
+	cout << ans << endl;
 }
 
 int main() {

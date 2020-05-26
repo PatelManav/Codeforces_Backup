@@ -20,23 +20,22 @@
 using namespace std;
 
 ll n;
+ll arr[size_1d];
 
 void Input() {
 	cin >> n;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
 }
 
 void Solve() {
-	vector<pll> arr;
-	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+	sort(arr, arr + n);
+	if (arr[n - 1] < arr[n - 2] + arr[n - 3]) {
+		cout << "YES\n";
+		cout << arr[n - 2] << " " << arr[n - 1] << " ";
+		for (ll i = n - 3; i >= 0; i--)cout << arr[i] << " ";
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+	else cout << "NO\n";
 }
 
 int main() {
@@ -48,7 +47,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

@@ -26,17 +26,31 @@ void Input() {
 }
 
 void Solve() {
-	vector<pll> arr;
+	vector<string> arr;
 	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+		string str;
+		cin >> str;
+		arr.pb(str);
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+
+	vector<pll> cnt;
+	ll ans = 0;
+	for (ll i = 0; i < n; i++) {
+		ll one = 0, zero = 0;
+		for (ll j = 0; j < arr[i].size(); j++) {if (arr[i][j] == '1')one++; else zero++;}
+		cnt.pb({one, zero});
+		if ((one + zero) % 2)ans++;
+	}
+	for (ll i = 0; i < n; i++) {
+		if ((cnt[i].f + cnt[i].s) % 2)continue;
+		if (cnt[i].f % 2 == 0) {ans++; continue;}
+		for (ll j = 0; j < n; j++) {
+			if (j == i or ((cnt[j].f + cnt[j].s) % 2 == 0 and cnt[j].f % 2 == 0))continue;
+			if (cnt[j].f >= 1) {cnt[i].f++; cnt[i].s--; cnt[j].f--; cnt[j].s++; ans++; break;}
+			else if (cnt[j].s >= 1) {cnt[i].f--; cnt[i].s++; cnt[j].f++; cnt[j].s--; ans++; break;}
+		}
+	}
+	cout << ans << endl;
 }
 
 int main() {

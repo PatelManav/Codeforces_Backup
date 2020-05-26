@@ -19,24 +19,18 @@
 
 using namespace std;
 
-ll n;
+ll a, b;
 
 void Input() {
-	cin >> n;
+	cin >> a >> b;
 }
 
 void Solve() {
-	vector<pll> arr;
-	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
-	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+	ll ans = abs(b - a) / 5;
+	ll d = abs(b - a) % 5;
+	if (d == 3 or d == 4) ans += 2;
+	else if (d == 1 or d == 2) ans += 1;
+	cout << ans << endl;
 }
 
 int main() {

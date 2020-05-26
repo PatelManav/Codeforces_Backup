@@ -20,23 +20,24 @@
 using namespace std;
 
 ll n;
+string str;
 
 void Input() {
-	cin >> n;
+	cin >> n >> str;
 }
 
 void Solve() {
-	vector<pll> arr;
+	ll o = 0, z = 0;
 	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
+		if (str[i] == '1')o++;
+		else z++;
 	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+	if (o == z) {
+		cout << 2 << endl;
+		for (ll i = 0; i < n - 1; i++)cout << str[i];
+		cout << " " << str[n - 1];
+	}
+	else cout << 1 << endl << str;
 }
 
 int main() {
@@ -48,7 +49,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

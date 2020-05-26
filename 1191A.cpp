@@ -26,17 +26,10 @@ void Input() {
 }
 
 void Solve() {
-	vector<pll> arr;
-	for (ll i = 0; i < n; i++) {
-		ll u, v;
-		cin >> u >> v;
-		arr.pb({u, v});
-	}
-	ll l = INT_MAX;
-	for (ll i = 0; i < n; i++) l = min(l, arr[i].s);
-	ll r = l;
-	for (ll i = 0; i < n; i++) r = max(r, arr[i].f);
-	cout << r - l << endl;
+	if (n % 4 == 1)cout << "0 A";
+	else if (n % 4 == 2)cout << "1 B";
+	else if (n % 4 == 3)cout << "2 A";
+	else cout << "1 A";
 }
 
 int main() {
@@ -48,7 +41,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();
