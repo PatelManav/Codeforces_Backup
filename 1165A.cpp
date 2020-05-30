@@ -20,22 +20,25 @@
 
 using namespace std;
 
-ll n;
+ll n, x, y;
 string str;
 
 void Input() {
-	cin >> n >> str;
+	cin >> n >> x >> y >> str;
 }
 
 void Solve() {
-	string arr[] = {"0", "0", "2", "3", "322", "5", "53", "7", "7222", "7332"};
-	string osf = "";
-	for (ll i = 0; i < n; i++) {
-		if (str[i] == '1' or str[i] == '0')continue;
-		osf += arr[str[i] - '0'];
+	string osf = "1";
+	ll ans = 0;
+	for (ll i = 0; i < x; i++)osf += "0";
+	osf[osf.size() - y - 1] = '1';
+	ll t = osf.size() - 1;
+	for (ll i = n - 1; i >= 0; i--) {
+		if (osf[t] != str[i])ans++;
+		t--;
+		if (t == 0)break;
 	}
-	sort(all(osf)); reverse(all(osf));
-	cout << osf;
+	cout << ans;
 }
 
 int main() {

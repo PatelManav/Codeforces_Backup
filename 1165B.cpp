@@ -21,21 +21,24 @@
 using namespace std;
 
 ll n;
-string str;
+ll arr[size_1d];
 
 void Input() {
-	cin >> n >> str;
+	cin >> n;
+	for (ll i = 0; i < n; i++)
+		cin >> arr[i];
 }
 
 void Solve() {
-	string arr[] = {"0", "0", "2", "3", "322", "5", "53", "7", "7222", "7332"};
-	string osf = "";
-	for (ll i = 0; i < n; i++) {
-		if (str[i] == '1' or str[i] == '0')continue;
-		osf += arr[str[i] - '0'];
+	sort(arr, arr + n);
+	ll i = 0, ans = 0, t = 1;
+	while (i < n) {
+		bool f = false;
+		while (arr[i] < t) {i++; if (i == n) {f = true; break;}}
+		if (f)break;
+		ans++, t++, i++;
 	}
-	sort(all(osf)); reverse(all(osf));
-	cout << osf;
+	cout << ans << endl;
 }
 
 int main() {

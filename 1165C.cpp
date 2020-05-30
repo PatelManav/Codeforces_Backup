@@ -28,14 +28,20 @@ void Input() {
 }
 
 void Solve() {
-	string arr[] = {"0", "0", "2", "3", "322", "5", "53", "7", "7222", "7332"};
+	reverse(all(str));
 	string osf = "";
-	for (ll i = 0; i < n; i++) {
-		if (str[i] == '1' or str[i] == '0')continue;
-		osf += arr[str[i] - '0'];
+	while (str.size()) {
+		char c = str.back();
+		str.pop_back();
+		while (str.size() and c == str.back())str.pop_back();
+		if (str.size()) {
+			osf += c;
+			osf += str.back();
+			str.pop_back();
+		}
 	}
-	sort(all(osf)); reverse(all(osf));
-	cout << osf;
+
+	cout << n - osf.size() << endl << osf;
 }
 
 int main() {

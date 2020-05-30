@@ -1,2 +1,3 @@
-10 1
-bbabbabbba
+4
+
+aabc

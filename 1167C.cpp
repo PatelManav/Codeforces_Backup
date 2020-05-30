@@ -20,22 +20,36 @@
 
 using namespace std;
 
-ll n;
-string str;
+ll n, m, c = 0;
+vll g[1000000];
+ll vis[1000000], siz[1000000];
 
 void Input() {
-	cin >> n >> str;
+	cin >> n >> m;
+}
+
+ll dfs(ll x) {
+	if (vis[x])return 0;
+	vis[x] = c;
+	ll ans = (x >= n ? 0 : 1);
+	for (auto it : g[x])ans += dfs(it);
+	return ans;
 }
 
 void Solve() {
-	string arr[] = {"0", "0", "2", "3", "322", "5", "53", "7", "7222", "7332"};
-	string osf = "";
-	for (ll i = 0; i < n; i++) {
-		if (str[i] == '1' or str[i] == '0')continue;
-		osf += arr[str[i] - '0'];
+	for (ll i = 0; i < m; i++) {
+		ll k; cin >> k;
+		for (ll j = 0; j < k; j++) {
+			ll d; cin >> d; d--;
+			g[d].pb(i + n);
+			g[i + n].pb(d);
+		}
 	}
-	sort(all(osf)); reverse(all(osf));
-	cout << osf;
+
+	for (ll i = 0; i < n; i++) {
+		if (!vis[i]) {c++, siz[c] = dfs(i);}
+		cout << siz[vis[i]] << " ";
+	}
 }
 
 int main() {
