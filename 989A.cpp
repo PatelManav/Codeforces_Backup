@@ -21,24 +21,21 @@
 
 using namespace std;
 
-ll n, m;
 
 void Input() {
-	cin >> n >> m;
 }
 
 void Solve() {
-	ll a[n][m];
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++) cin >> a[i][j];
-	ll b[n + m - 1][2] = {0};
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++)b[i + j][a[i][j]]++;
-	ll ans = 0;
-	for (ll i = 0; i <= m + n - 2; i++) {
-		ll x = n + m - 2 - i;
-		if (i <= x) continue;
-		ans += min(b[i][0] + b[x][0], b[i][1] + b[x][1]);
+	string s; cin >> s;
+	if (s.size() >= 3) {
+		for (ll i = 0; i < s.size() - 2; i++) {
+			if (s[i] != s[i + 1] and s[i] != s[i + 2] and s[i + 1] != s[i + 2] and s[i] != '.' and s[i + 1] != '.' and s[i + 2] != '.') {
+				cout << "yes";
+				return;
+			}
+		}
 	}
-	cout << ans << endl;
+	cout << "no";
 }
 
 int main() {
@@ -50,7 +47,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

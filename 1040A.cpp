@@ -21,24 +21,31 @@
 
 using namespace std;
 
-ll n, m;
+ll n, x, y;
 
 void Input() {
-	cin >> n >> m;
+	cin >> n >> x >> y;
 }
 
 void Solve() {
-	ll a[n][m];
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++) cin >> a[i][j];
-	ll b[n + m - 1][2] = {0};
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++)b[i + j][a[i][j]]++;
+	vll a(n);
+	for (ll i = 0; i < n; i++) cin >> a[i];
 	ll ans = 0;
-	for (ll i = 0; i <= m + n - 2; i++) {
-		ll x = n + m - 2 - i;
-		if (i <= x) continue;
-		ans += min(b[i][0] + b[x][0], b[i][1] + b[x][1]);
+	for (ll i = 0; i < n / 2; i++) {
+		if (a[i] != a[n - 1 - i] and max(a[i], a[n - 1 - i]) != 2) {
+			cout << -1;
+			return;
+		}
+		else if (a[i] != a[n - 1 - i]) {
+			if (a[i] == 0 or a[n - 1 - i] == 0)ans += x;
+			else ans += y;
+		}
+		if (a[i] == a[n - 1 - i] and a[i] == 2) {
+			ans += 2 * (min(x, y));
+		}
 	}
-	cout << ans << endl;
+	if (n % 2 and a[n / 2] == 2) ans += min(x, y);
+	cout << ans;
 }
 
 int main() {
@@ -50,7 +57,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

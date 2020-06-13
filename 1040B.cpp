@@ -21,24 +21,18 @@
 
 using namespace std;
 
-ll n, m;
+ll n, k;
 
 void Input() {
-	cin >> n >> m;
+	cin >> n >> k;
 }
 
 void Solve() {
-	ll a[n][m];
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++) cin >> a[i][j];
-	ll b[n + m - 1][2] = {0};
-	for (ll i = 0; i < n; i++) for (ll j = 0; j < m; j++)b[i + j][a[i][j]]++;
-	ll ans = 0;
-	for (ll i = 0; i <= m + n - 2; i++) {
-		ll x = n + m - 2 - i;
-		if (i <= x) continue;
-		ans += min(b[i][0] + b[x][0], b[i][1] + b[x][1]);
-	}
-	cout << ans << endl;
+	cout << n / (2 * k + 1) + (n % (2 * k + 1) != 0) << endl;
+	if (n % (2 * k + 1) == 0) for (ll i = k + 1; i <= n; i += 2 * k + 1)cout << i << " ";
+	else if (n % (2 * k + 1) < k + 1) for (ll i = 1; i <= n; i += 2 * k + 1)cout << i << " ";
+	else for (ll i = n % (2 * k + 1) - k + 1; i <= n; i += 2 * k + 1)cout << i << " ";
+
 }
 
 int main() {
@@ -50,7 +44,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();
