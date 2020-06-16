@@ -1,5 +1,4 @@
-YES
-YES
-YES
-NO
-NO
+aab
+a
+aba
+codeforces
