@@ -21,21 +21,22 @@
 
 using namespace std;
 
-ll n, k;
+ll n;
 
 void Input() {
-	cin >> n >> k;
+	cin >> n;
 }
 
 void Solve() {
-	string s; cin >> s;
-	ll a[26] = {0};
-	for (ll i = 0; i < n; i++)a[s[i] - 'a']++;
-	for (ll i = 0; i < 26; i++)if (a[i] == n) {cout << n << endl; return;}
-	if (k >= n) while (n--)if (k % n == 0) {cout << n << endl; return;}
-			else {
-
-			}
+	vll a(n);
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	for (ll i = 0; i < n; i++) {
+		if ((a[i] / 7) % 2 or a[i] / 7 < 2)cout << "NO\n";
+		else {
+			if (a[i] % 7)cout << "YES\n";
+			else cout << "NO\n";
+		}
+	}
 }
 
 int main() {

@@ -21,38 +21,34 @@
 
 using namespace std;
 
-ll m;
-string s;
+ll n, m, ta, tb, k;
 
 void Input() {
-	cin >> s >> m;
+	cin >> n >> m >> ta >> tb >> k;
 }
 
-
 void Solve() {
-	vll a(m);
-	for (ll i = 0; i < m; i++)cin >> a[i];
-	vector<vll> grp;
-	while (1) {
-		vll pos;
-		for (ll i = 0; i < m; i++)if (!a[i])pos.pb(i);
-		if (pos.empty())break;
-		grp.pb(pos);
-		for (ll i = 0; i < m; i++) {
-			if (!a[i])a[i] = inf;
-			else for (auto it : pos)a[i] -= abs(it - i);
+	vll a(n), b(m);
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	for (ll i = 0; i < m; i++) cin >> b[i];
+	ll ans = -inf;
+	if (k >= n)cout << -1;
+	else {
+		for (ll i = 0; i <= k; i++) {
+			ll left = k - i, x = a[i] + ta;
+			ll l = 0, r = m - 1, midd = m;
+			while (l <= r) {
+				ll mid = l + (r - l) / 2;
+				if (b[mid] < x) l = mid + 1;
+				else midd = mid, r = mid - 1;
+			}
+			ll t = midd + left;
+			if (t >= m) {cout << -1; return;}
+			else ans = max(ans, b[t] + tb);
 		}
+		cout << ans;
 	}
-	string osf(m, '.');
-	map<char, ll> mp;
-	for (auto it : s)mp[it]++;
-	auto it = mp.rbegin();
-	for (auto g : grp) {
-		while (it->s < g.size())it++;
-		for (auto jt : g) osf[jt] = it->f;
-		it++;
-	}
-	cout << osf << endl;
+
 }
 
 int main() {
@@ -64,7 +60,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

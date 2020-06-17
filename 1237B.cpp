@@ -21,38 +21,30 @@
 
 using namespace std;
 
-ll m;
-string s;
+ll n;
 
 void Input() {
-	cin >> s >> m;
+	cin >> n;
 }
 
-
 void Solve() {
-	vll a(m);
-	for (ll i = 0; i < m; i++)cin >> a[i];
-	vector<vll> grp;
-	while (1) {
-		vll pos;
-		for (ll i = 0; i < m; i++)if (!a[i])pos.pb(i);
-		if (pos.empty())break;
-		grp.pb(pos);
-		for (ll i = 0; i < m; i++) {
-			if (!a[i])a[i] = inf;
-			else for (auto it : pos)a[i] -= abs(it - i);
+	vll a(n), b(n);
+	stack<ll> s;
+	mll mp;
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	for (ll i = 0; i < n; i++) cin >> b[i];
+	for (ll i = n - 1; i >= 0; i--) s.push(b[i]), mp[b[i]] = 1;
+	ll ans = 0;
+	for (ll i = 0; i < n; i++) {
+		if (mp[a[i]] == -1)continue;
+		while (a[i] != s.top()) {
+			mp[s.top()] = -1;
+			s.pop();
+			ans++;
 		}
+		s.pop();
 	}
-	string osf(m, '.');
-	map<char, ll> mp;
-	for (auto it : s)mp[it]++;
-	auto it = mp.rbegin();
-	for (auto g : grp) {
-		while (it->s < g.size())it++;
-		for (auto jt : g) osf[jt] = it->f;
-		it++;
-	}
-	cout << osf << endl;
+	cout << ans;
 }
 
 int main() {
@@ -64,7 +56,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();
