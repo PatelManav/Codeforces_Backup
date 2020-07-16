@@ -21,32 +21,28 @@
 
 using namespace std;
 
-ll n;
+ll n, q;
 
 void Input() {
-	cin >> n;
+	cin >> n >> q;
 }
 
 void Solve() {
-	vector<double> a(n);
+	vll a(n);
 	for (ll i = 0; i < n; i++) cin >> a[i];
-	double ans = 0;
-	for (ll i = 0; i < n; i++) {
-		for (ll j = i; j < n; j++) {
-			double t = 0;
-			for (ll k = i; k <= j; k++) {
-				double u = a[k];
-				for (ll l = i; l <= j; l++) {
-					if (k == l)continue;
-					u *= (1 - a[l]);
-				}
-				t += u;
-			}
-			ans = max(ans, t);
+	mll mp;
+	for (ll i = 0; i < n; i++) mp[a[i]]++;
+	while (q--) {
+		ll d, ans = 0;
+		cin >> d;
+		for (ll i = 32; i >= 0 and d > 0; i--) {
+			ll x = min(mp[1 << i], d>>i);
+			ans += x;
+			d -= x * (1 << i);
 		}
+		if (d > 0)ans = -1;
+		cout << ans << endl;
 	}
-	cout.precision(20);
-	cout << ans;
 }
 
 int main() {

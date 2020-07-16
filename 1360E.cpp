@@ -28,25 +28,17 @@ void Input() {
 }
 
 void Solve() {
-	vector<double> a(n);
-	for (ll i = 0; i < n; i++) cin >> a[i];
-	double ans = 0;
-	for (ll i = 0; i < n; i++) {
-		for (ll j = i; j < n; j++) {
-			double t = 0;
-			for (ll k = i; k <= j; k++) {
-				double u = a[k];
-				for (ll l = i; l <= j; l++) {
-					if (k == l)continue;
-					u *= (1 - a[l]);
-				}
-				t += u;
+	char a[n][n];
+	for (ll i = 0; i < n; i++)for (ll j = 0; j < n; j++) cin >> a[i][j];
+	bool f = true;
+	for (ll i = 0; i < n; i++)for (ll j = 0; j < n; j++) if (a[i][j] == '1') {
+				if (i == n - 1 or j == n - 1) continue;
+				if ((a[i + 1][j] == '1') or (a[i][j + 1] == '1')) f &= true;
+				else f &= false;
 			}
-			ans = max(ans, t);
-		}
-	}
-	cout.precision(20);
-	cout << ans;
+	if (f)cout << "YES";
+	else cout << "NO";
+	cout << endl;
 }
 
 int main() {
@@ -58,7 +50,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	//cin >> T;
+	cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

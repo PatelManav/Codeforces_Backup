@@ -28,24 +28,19 @@ void Input() {
 }
 
 void Solve() {
-	vector<double> a(n);
+	vll a(n);
+	mll mp;
 	for (ll i = 0; i < n; i++) cin >> a[i];
-	double ans = 0;
-	for (ll i = 0; i < n; i++) {
-		for (ll j = i; j < n; j++) {
-			double t = 0;
-			for (ll k = i; k <= j; k++) {
-				double u = a[k];
-				for (ll l = i; l <= j; l++) {
-					if (k == l)continue;
-					u *= (1 - a[l]);
-				}
-				t += u;
-			}
-			ans = max(ans, t);
+	for (ll i = 0; i < n; i++) mp[a[i]]++;
+	ll ans = 0;
+	for (auto it : a) {
+		bool f = false;
+		for (ll i = 0; i < 31; i++) {
+			ll j = (1 << i) - it;
+			if (mp.count(j) and (mp[j] >= 2 or (mp[j] == 1 and j != it)))f = true;
 		}
+		ans += !f;
 	}
-	cout.precision(20);
 	cout << ans;
 }
 
