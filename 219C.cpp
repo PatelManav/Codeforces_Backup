@@ -17,6 +17,7 @@
 #define inf INT_MAX
 #define size_1d 10000000
 #define size_2d 1000
+#define rep(i,v,n) for(long long i = v; i < n; i++)
 //Snippets: delta, sieve, fastexp, dfs, bfs, dijkstra, floodfill
 
 using namespace std;
@@ -28,27 +29,51 @@ void Input() {
 }
 
 void Solve() {
-	ll a[k][n + 1] = {0};
-	vll div[n + 1];
-	for (ll i = 1; i <= n; i++) {
-		for (ll j = 1; j * j <= i; j++) {
-			if (i % j == 0) {
-				div[i].pb(j);
-				if (j != i / j)div[i].pb(i / j);
+	string s;
+	cin >> s;
+	if (k > 2) {
+		vector<string> c;
+		string a = ""; a += s[0];
+		rep(i, 1, n) {
+			if (s[i] == s[i - 1])a += s[i];
+			else {
+				c.pb(a);
+				a = "";
+				a += s[i];
 			}
 		}
-	}
-	for (ll i = 1; i <= n; i++) a[0][i] = 1;
-	for (ll i = 1; i < k; i++) {
-		for (ll j = 1; j <= n; j++) {
-			for (ll K = 0; K < div[j].size(); K++) a[i][j] = (a[i][j] + a[i - 1][div[j][K]]) % MOD;
+		c.pb(a);
+		ll ans = 0;
+		rep(i, 0, c.size()) {
+			if (c[i].size() > 1) {
+				ll Ch = c[i][0] - 'A';
+				for (ll j = 1; j < c[i].size(); j += 2) {
+					ans++;
+					c[i][j] = (Ch + 1) % k + 'A';
+					if (i != c.size() - 1 and c[i][j] == c[i + 1][0])c[i][j] = (Ch + 2) % k + 'A';
+				}
+			}
 		}
+		cout << ans << endl;
+		rep(i, 0, c.size())cout << c[i];
 	}
-	ll ans = 0;
-	for (ll i = 1; i <= n; i++)ans = (ans + a[k - 1][i]) % MOD;
-	cout << ans;
+	else {
+		string a = s, b = s;
+		bool f = true;
+		for (ll i = 0; i < n; i++) {
+			if (f)a[i] = 'A', b[i] = 'B';
+			else b[i] = 'A', a[i] = 'B';
+			f = !f;
+		}
+		ll ta = 0, tb = 0;
+		for (ll i = 0; i < n; i++) {
+			if (a[i] != s[i])ta++;
+			if (b[i] != s[i])tb++;
+		}
+		if (ta > tb)cout << tb << endl << b;
+		else cout << ta << endl << a;
+	}
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);

@@ -21,34 +21,46 @@
 
 using namespace std;
 
-ll n, k;
-
+ll n;
+vector<pll> a;
+map<ll, vll> mp;
+mll vis;
+bool f = false;
+void dfs(ll s, ll t) {
+	if (vis.count(s))return;
+	vis[s] = 1;
+	for (auto it : mp[s]) {
+		if (it == t)f = true;
+		dfs(it, t);
+	}
+}
 void Input() {
-	cin >> n >> k;
+	cin >> n;
+
 }
 
 void Solve() {
-	ll a[k][n + 1] = {0};
-	vll div[n + 1];
-	for (ll i = 1; i <= n; i++) {
-		for (ll j = 1; j * j <= i; j++) {
-			if (i % j == 0) {
-				div[i].pb(j);
-				if (j != i / j)div[i].pb(i / j);
-			}
+	while (n--) {
+		ll d; cin >> d;
+		if (d == 1) {
+			ll x, y;
+			cin >> x >> y;
+			a.pb({x, y});
+		}
+		else if (d == 2) {
+			ll u, v;
+			cin >> u >> v;
+			u--, v--;
+			mp.clear(); vis.clear();
+			for (ll i = 0; i < a.size(); i++) for (ll j = 0; j < a.size(); j++)
+					if ((a[i].f > a[j].f and a[i].f < a[j].s) or (a[i].s > a[j].f and a[i].s < a[j].s)) mp[i].pb(j);
+			f = false;
+			dfs(u, v);
+			if (f)cout << "YES\n";
+			else cout << "NO\n";
 		}
 	}
-	for (ll i = 1; i <= n; i++) a[0][i] = 1;
-	for (ll i = 1; i < k; i++) {
-		for (ll j = 1; j <= n; j++) {
-			for (ll K = 0; K < div[j].size(); K++) a[i][j] = (a[i][j] + a[i - 1][div[j][K]]) % MOD;
-		}
-	}
-	ll ans = 0;
-	for (ll i = 1; i <= n; i++)ans = (ans + a[k - 1][i]) % MOD;
-	cout << ans;
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);

@@ -21,34 +21,21 @@
 
 using namespace std;
 
-ll n, k;
+ll n;
 
 void Input() {
-	cin >> n >> k;
+	cin >> n;
 }
 
 void Solve() {
-	ll a[k][n + 1] = {0};
-	vll div[n + 1];
-	for (ll i = 1; i <= n; i++) {
-		for (ll j = 1; j * j <= i; j++) {
-			if (i % j == 0) {
-				div[i].pb(j);
-				if (j != i / j)div[i].pb(i / j);
-			}
-		}
+	ll d = 1, abc = 0;
+	while (n--) {
+		ll nd = (3 * abc) % MOD;
+		ll nabc = (abc + abc + d) % MOD;
+		d = nd, abc = nabc;
 	}
-	for (ll i = 1; i <= n; i++) a[0][i] = 1;
-	for (ll i = 1; i < k; i++) {
-		for (ll j = 1; j <= n; j++) {
-			for (ll K = 0; K < div[j].size(); K++) a[i][j] = (a[i][j] + a[i - 1][div[j][K]]) % MOD;
-		}
-	}
-	ll ans = 0;
-	for (ll i = 1; i <= n; i++)ans = (ans + a[k - 1][i]) % MOD;
-	cout << ans;
+	cout << d;
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);

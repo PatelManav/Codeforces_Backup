@@ -21,34 +21,34 @@
 
 using namespace std;
 
-ll n, k;
+ll n, m, k;
 
 void Input() {
-	cin >> n >> k;
+	cin >> n >> m >> k;
 }
 
 void Solve() {
-	ll a[k][n + 1] = {0};
-	vll div[n + 1];
-	for (ll i = 1; i <= n; i++) {
-		for (ll j = 1; j * j <= i; j++) {
-			if (i % j == 0) {
-				div[i].pb(j);
-				if (j != i / j)div[i].pb(i / j);
-			}
-		}
+	vector<pll> a;
+	for (ll i = 0; i < n; i++) {
+		if (i % 2)for (ll j = m - 1; j >= 0; j--) a.pb({i + 1, j + 1});
+		else for (ll j = 0; j < m; j++) a.pb({i + 1, j + 1});
 	}
-	for (ll i = 1; i <= n; i++) a[0][i] = 1;
-	for (ll i = 1; i < k; i++) {
-		for (ll j = 1; j <= n; j++) {
-			for (ll K = 0; K < div[j].size(); K++) a[i][j] = (a[i][j] + a[i - 1][div[j][K]]) % MOD;
-		}
+	vll b;
+	b.pb(n * m - 2 * (k - 1));
+	ll v = 2 * (k - 1);
+	while (v) {
+		b.pb(2);
+		v -= 2;
 	}
-	ll ans = 0;
-	for (ll i = 1; i <= n; i++)ans = (ans + a[k - 1][i]) % MOD;
-	cout << ans;
+	ll t = 0, tp = 0;
+	for (auto it : a) {
+		if (!tp)cout << b[t];
+		cout << " " << it.f << " " << it.s;
+		tp++;
+		if (tp == b[t])t++, tp = 0, cout << endl;
+	}
+	cout << endl;
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);

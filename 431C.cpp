@@ -17,38 +17,36 @@
 #define inf INT_MAX
 #define size_1d 10000000
 #define size_2d 1000
+#define rep(i,v,n) for(ll i = v; i < n; i++)
 //Snippets: delta, sieve, fastexp, dfs, bfs, dijkstra, floodfill
 
 using namespace std;
 
-ll n, k;
+ll n, k, d;
 
 void Input() {
-	cin >> n >> k;
+	cin >> n >> k >> d;
 }
 
 void Solve() {
-	ll a[k][n + 1] = {0};
-	vll div[n + 1];
+	ll dp[n + 1][2] = {0};
+	dp[0][0] = 1;
 	for (ll i = 1; i <= n; i++) {
-		for (ll j = 1; j * j <= i; j++) {
-			if (i % j == 0) {
-				div[i].pb(j);
-				if (j != i / j)div[i].pb(i / j);
+		for (ll j = 1; j <= k; j++) {
+			if (j > i)break;
+			if (j < d) {
+				dp[i][0] = (dp[i][0] + dp[i - j][0]) % MOD;
+				dp[i][1] = (dp[i][1] + dp[i - j][1]) % MOD;
+			}
+			else {
+				dp[i][1] = (dp[i][1] + dp[i - j][0]) % MOD;
+				dp[i][1] = (dp[i][1] + dp[i - j][1]) % MOD;
+
 			}
 		}
 	}
-	for (ll i = 1; i <= n; i++) a[0][i] = 1;
-	for (ll i = 1; i < k; i++) {
-		for (ll j = 1; j <= n; j++) {
-			for (ll K = 0; K < div[j].size(); K++) a[i][j] = (a[i][j] + a[i - 1][div[j][K]]) % MOD;
-		}
-	}
-	ll ans = 0;
-	for (ll i = 1; i <= n; i++)ans = (ans + a[k - 1][i]) % MOD;
-	cout << ans;
+	cout << dp[n][1];
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);
