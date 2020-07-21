@@ -17,6 +17,7 @@
 #define inf INT_MAX
 #define size_1d 10000000
 #define size_2d 1000
+#define rep(i,v,n) for(ll i = v; i < n; i++)
 //Snippets: delta, sieve, fastexp, dfs, bfs, dijkstra, floodfill
 
 using namespace std;
@@ -27,38 +28,18 @@ void Input() {
 	cin >> n;
 }
 
-void Solve() {
-	vll a(n);
-	for (ll i = 0; i < n; i++) cin >> a[i];
-	vll o, e;
-	for (ll i = 0; i < n; i++) {
-		if (i % 2)o.pb(a[i]);
-		else e.pb(a[i]);
-	}
-	while (o.size() < e.size())o.pb(0);
-	while (e.size() < o.size())e.pb(0);
-	ll x = o.size();
-	vll po(x, 0), pe(x, 0);
-	po[0] = o[0], pe[0] = e[0];
-	for (ll i = 1; i < x; i++)po[i] = po[i - 1] + o[i];
-	for (ll i = 1; i < x; i++)pe[i] = pe[i - 1] + e[i];
-	ll cur = 0, ans = pe[x - 1], l = -1;
-	for (ll i = 0; i < x; i++) {
-		cur += o[i] - e[i];
-		if (cur < 0) {
-			cur = 0;
-			l = i;
-		}
-		else {
-			ll z = 0;
-			if (l == -1)z = po[i] - pe[i];
-			else z = (po[i] - po[l]) - (pe[i] - pe[l]);
-			ll d = z + pe[x - 1];
-			ans = max(ans, d);
-		}
-	}
-	cout << ans << endl;
+ll calc(string s, char a) {
+	if (s.size() == 1)return s[0] != a;
+	ll m = s.size() / 2;
+	ll l = calc(string(s.begin(), s.begin() + m), a + 1) + m - count(s.begin() + m, s.end(), a);
+	ll r = calc(string(s.begin() + m, s.end()), a + 1) + m - count(s.begin(), s.begin() + m, a);
+	return min(l, r);
+}
 
+void Solve() {
+	string s;
+	cin >> s;
+	cout << calc(s, 'a') << endl;
 }
 
 int main() {
