@@ -4,7 +4,7 @@
 #include <ctype.h>
 #pragma GCC optimize ("Ofast")
 #define ll long long
-#define MOD 1073741824
+#define MOD 1000000007
 #define endl "\n"
 #define vll vector<long long>
 #define mll map<long long,long long>
@@ -22,28 +22,25 @@
 
 using namespace std;
 
-ll a, b, c;
+ll n;
+string a, b;
 
 void Input() {
-	cin >> a >> b >> c;
+	cin >> n >> a >> b;
 }
 
 void Solve() {
-	ll ans = 0, dp[1000000 + 1] = {0};
-	for (ll i = 1; i <= a; i++)for (ll j = 1; j <= b; j++)for (ll k = 1; k <= c; k++) {
-				if (dp[i * j * k] > 0) {ans = (ans + dp[i * j * k]) % MOD; continue;}
-				ll t = 0;
-				for (ll p = 1; p * p <= i * j * k; p++) {
-					if ((i * j * k) % p == 0) {
-						t = (t + 1 ) % MOD;
-						if ((i * j * k) / p != p)
-							t = (t + 1) % MOD;
-					}
-				}
-				dp[i * j * k] = t;
-				ans = (ans + t) % MOD;
-			}
-	cout << ans;
+	vll x, y;
+	a += '0', b += '0';
+	for (ll i = 0; i < n; i++) {
+		if (a[i] != a[i + 1])x.pb(i + 1);
+		if (b[i] != b[i + 1])y.pb(i + 1);
+	}
+	cout << x.size() + y.size() << " ";
+	for (auto it : x)cout << it << " ";
+	reverse(all(y));
+	for (auto it : y)cout << it << " ";
+	cout << endl;
 }
 
 int main() {
@@ -55,7 +52,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	//cin >> T;
+	cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

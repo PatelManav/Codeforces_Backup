@@ -29,18 +29,11 @@ void Input() {
 }
 
 void Solve() {
-	vll a(n);
-	for (ll i = 0; i < n; i++) cin >> a[i];
-	ll one = -1;
-	for (ll i = 0; i < n; i++) {if (a[i] == 1)one = i; else break;}
-	if (one == -1)cout << "First";
-	else if (one == n - 1) {
-		if (n % 2)cout << "First";
-		else cout << "Second";
+	if (n < 3)cout << -1;
+	else if (n == 3)cout << 210;
+	else {
+
 	}
-	else if (one % 2 == 0)cout << "Second";
-	else cout << "First";
-	cout << endl;
 }
 
 int main() {
@@ -52,7 +45,7 @@ int main() {
 #endif
 
 	ll T = 1;
-	cin >> T;
+	//cin >> T;
 	//ll t = 1;
 	while (T--) {
 		Input();

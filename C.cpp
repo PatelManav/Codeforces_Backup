@@ -4,7 +4,7 @@
 #include <ctype.h>
 #pragma GCC optimize ("Ofast")
 #define ll long long
-#define MOD 1073741824
+#define MOD 1000000007
 #define endl "\n"
 #define vll vector<long long>
 #define mll map<long long,long long>
@@ -22,27 +22,25 @@
 
 using namespace std;
 
-ll a, b, c;
+ll n;
 
 void Input() {
-	cin >> a >> b >> c;
+	cin >> n;
 }
 
 void Solve() {
-	ll ans = 0, dp[1000000 + 1] = {0};
-	for (ll i = 1; i <= a; i++)for (ll j = 1; j <= b; j++)for (ll k = 1; k <= c; k++) {
-				if (dp[i * j * k] > 0) {ans = (ans + dp[i * j * k]) % MOD; continue;}
-				ll t = 0;
-				for (ll p = 1; p * p <= i * j * k; p++) {
-					if ((i * j * k) % p == 0) {
-						t = (t + 1 ) % MOD;
-						if ((i * j * k) / p != p)
-							t = (t + 1) % MOD;
-					}
-				}
-				dp[i * j * k] = t;
-				ans = (ans + t) % MOD;
-			}
+	ll ans = 0;
+	ll p = n;
+	for (ll i = 1; i < p; i++) {
+		bool f = true;
+		ll x = 1;
+		for (ll j = 1; j <= p - 2; j++) {
+			x = (x * i) % p;
+			if ((x - 1) % p == 0) {f = false; break;}
+		}
+		if ((x - 1) % p == 0)f &= true;
+		if (f)ans++;
+	}
 	cout << ans;
 }
 

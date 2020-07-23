@@ -4,7 +4,7 @@
 #include <ctype.h>
 #pragma GCC optimize ("Ofast")
 #define ll long long
-#define MOD 1073741824
+#define MOD 1000000007
 #define endl "\n"
 #define vll vector<long long>
 #define mll map<long long,long long>
@@ -22,28 +22,31 @@
 
 using namespace std;
 
-ll a, b, c;
+ll n;
+vll a;
 
 void Input() {
-	cin >> a >> b >> c;
+	cin >> n;
+	a.resize(n);
+}
+
+bool f = false;
+
+void func(ll i, ll su) {
+	if (i == n) {
+		f |= (su == 0 or su % 360 == 0);
+		return;
+	}
+	func(i + 1, su + a[i]);
+	func(i + 1, su - a[i]);
 }
 
 void Solve() {
-	ll ans = 0, dp[1000000 + 1] = {0};
-	for (ll i = 1; i <= a; i++)for (ll j = 1; j <= b; j++)for (ll k = 1; k <= c; k++) {
-				if (dp[i * j * k] > 0) {ans = (ans + dp[i * j * k]) % MOD; continue;}
-				ll t = 0;
-				for (ll p = 1; p * p <= i * j * k; p++) {
-					if ((i * j * k) % p == 0) {
-						t = (t + 1 ) % MOD;
-						if ((i * j * k) / p != p)
-							t = (t + 1) % MOD;
-					}
-				}
-				dp[i * j * k] = t;
-				ans = (ans + t) % MOD;
-			}
-	cout << ans;
+	ll su = 0;
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	func(0, su);
+	if (f)cout << "YES";
+	else cout << "NO";
 }
 
 int main() {

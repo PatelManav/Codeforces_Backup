@@ -29,18 +29,17 @@ void Input() {
 }
 
 void Solve() {
-	string a, b;
-	cin >> a >> b;
-	vll ans;
-	for (ll i = 0; i < n; i++) {
-		if (i % 2 == 0) {
-			if (a[i / 2] == b[n - i - 1])ans.pb(1);
-		}
-		else if (a[n - 1 - i / 2] != b[n - i - 1])ans.pb(1);
-		ans.pb(n - i);
+	vll a(n);
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	ll one = -1;
+	for (ll i = 0; i < n; i++) {if (a[i] == 1)one = i; else break;}
+	if (one == -1)cout << "First";
+	else if (one == n - 1) {
+		if (n % 2)cout << "First";
+		else cout << "Second";
 	}
-	cout << ans.size() << " ";
-	for (auto it : ans)cout << it << " ";
+	else if (one % 2 == 0)cout << "Second";
+	else cout << "First";
 	cout << endl;
 }
 

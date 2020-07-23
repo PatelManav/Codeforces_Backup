@@ -4,7 +4,7 @@
 #include <ctype.h>
 #pragma GCC optimize ("Ofast")
 #define ll long long
-#define MOD 1073741824
+#define MOD 1000000007
 #define endl "\n"
 #define vll vector<long long>
 #define mll map<long long,long long>
@@ -22,28 +22,27 @@
 
 using namespace std;
 
-ll a, b, c;
+ll n, k;
 
 void Input() {
-	cin >> a >> b >> c;
+	cin >> n >> k;
 }
 
 void Solve() {
-	ll ans = 0, dp[1000000 + 1] = {0};
-	for (ll i = 1; i <= a; i++)for (ll j = 1; j <= b; j++)for (ll k = 1; k <= c; k++) {
-				if (dp[i * j * k] > 0) {ans = (ans + dp[i * j * k]) % MOD; continue;}
-				ll t = 0;
-				for (ll p = 1; p * p <= i * j * k; p++) {
-					if ((i * j * k) % p == 0) {
-						t = (t + 1 ) % MOD;
-						if ((i * j * k) / p != p)
-							t = (t + 1) % MOD;
-					}
-				}
-				dp[i * j * k] = t;
-				ans = (ans + t) % MOD;
-			}
-	cout << ans;
+	vll a(n);
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	pair<ll, pll> dp[n];
+	for (ll i = 0; i < n; i++) {
+		ll l = max(0ll, i - k), r = min(n - 1, i + k), x = r - l + 1;
+		if (a[i]) {
+			ll pr = dp[a[i] - 1].s.s;
+			if (pr >= l)x -= (pr - l + 1);
+			x += dp[a[i] - 1].f;
+		}
+		dp[i].f = x, dp[i].s.f = l, dp[i].s.s = r;
+
+	}
+	for (auto it : dp)cout << it.f << " ";
 }
 
 int main() {

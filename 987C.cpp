@@ -4,7 +4,7 @@
 #include <ctype.h>
 #pragma GCC optimize ("Ofast")
 #define ll long long
-#define MOD 1073741824
+#define MOD 1000000007
 #define endl "\n"
 #define vll vector<long long>
 #define mll map<long long,long long>
@@ -22,28 +22,29 @@
 
 using namespace std;
 
-ll a, b, c;
+ll n;
 
 void Input() {
-	cin >> a >> b >> c;
+	cin >> n;
 }
 
 void Solve() {
-	ll ans = 0, dp[1000000 + 1] = {0};
-	for (ll i = 1; i <= a; i++)for (ll j = 1; j <= b; j++)for (ll k = 1; k <= c; k++) {
-				if (dp[i * j * k] > 0) {ans = (ans + dp[i * j * k]) % MOD; continue;}
-				ll t = 0;
-				for (ll p = 1; p * p <= i * j * k; p++) {
-					if ((i * j * k) % p == 0) {
-						t = (t + 1 ) % MOD;
-						if ((i * j * k) / p != p)
-							t = (t + 1) % MOD;
-					}
-				}
-				dp[i * j * k] = t;
-				ans = (ans + t) % MOD;
+	vll a(n), b(n);
+	for (ll i = 0; i < n; i++) cin >> a[i];
+	for (ll i = 0; i < n; i++) cin >> b[i];
+	ll dp[3][n];
+	memset(dp, inf, sizeof dp);
+	// for (ll i = 0; i < 3; i++) for (ll j = 0; j < n; j++)dp[i][j] = inf;
+	for (ll i = 0; i < n; i++)dp[0][i] = b[i];
+	for (ll i = 1; i < 3; i++)for (ll j = 0; j < n; j++) {
+			for (ll k = 0; k < j; k++) {
+				if (a[k] < a[j])dp[i][j] = min(dp[i][j], dp[i - 1][k] + b[j]);
 			}
-	cout << ans;
+		}
+	ll ans = inf;
+	for (ll i = 0; i < n; i++)ans = min(ans, dp[2][i]);
+	if (ans == inf)cout << -1;
+	else cout << ans;
 }
 
 int main() {
