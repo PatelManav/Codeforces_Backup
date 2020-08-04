@@ -6,7 +6,7 @@
 #define inf 1e18
 #define ll long long
 #define mod 1000000007
-#define pb emplace_back
+#define pb push_back
 #define vll vector<long long>
 #define ull unsigned long long
 #define all(a) a.begin(),a.end()
@@ -16,34 +16,34 @@
 #define pll pair<long long, long long>
 using namespace std;
 
-ll n, m;
-ll const nax = 505;
+ll n;
 
 void input(){
-	cin >> n >> m;
+	cin >> n;
 }
 
 void solve(){
-	char a[n][m];
-	for(ll i = 0; i < n; i++)for(ll j = 0; j < m; j++)cin >> a[i][j];
-	ll h[nax][nax] = {0}, v[nax][nax] = {0};
-	for(int y = 0; y < n; ++y) for(int x = 0; x < m; ++x) {
-		h[x+1][y+1] = h[x][y+1] + h[x+1][y] - h[x][y];
-		v[x+1][y+1] = v[x][y+1] + v[x+1][y] - v[x][y];
-		if(a[y][x] != '.') continue;
-		if(x != m - 1 && a[y][x+1] == '.') ++h[x+1][y+1];
-		if(y != n - 1 && a[y+1][x] == '.') ++v[x+1][y+1];
-	}
-	ll q;
-	cin >> q;
-	while(q--){
-		ll x1, y1, x2, y2;
-		cin >> y1 >> x1 >> y2 >> x2;
-		x1--, y1--;
-		ll ans = 0;
-		ans += h[x2-1][y2] - h[x1][y2] - h[x2-1][y1] + h[x1][y1];
-		ans += v[x2][y2-1] - v[x1][y2-1] - v[x2][y1] + v[x1][y1];
-		cout<<ans<<endl;
+	string a, b;
+	cin >> a >> b;
+	vll ab, ba;
+	ll x = 0, y = 0;
+	for(ll i = 0; i < n; i++)if(a[i]=='a')x++;
+	for(ll i = 0; i < n; i++)if(b[i]=='a')x++;
+	if(x%2)cout<<-1;
+	else{
+		for(ll i = 0; i < n; i++){
+			if(a[i] == 'a' and b[i] == 'b')ab.pb(i+1);
+			if(a[i] == 'b' and b[i] == 'a')ba.pb(i+1);
+		}
+		if((sz(ab) + sz(ba))%2)cout<<-1;
+		else{
+			vector<pll> ans;
+			for(ll i = 1; i < sz(ab); i+=2)ans.pb({ab[i], ab[i-1]});
+			for(ll i = 1; i < sz(ba); i+=2)ans.pb({ba[i], ba[i-1]});
+			if(sz(ab)%2)ans.pb({ab.back(), ab.back()}), ans.pb({ab.back(), ba.back()});
+			cout<<ans.size()<<endl;
+			for(auto it:ans)cout<<it.f << " " << it.s << endl;
+		}
 	}
 }
 

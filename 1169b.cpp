@@ -17,34 +17,28 @@
 using namespace std;
 
 ll n, m;
-ll const nax = 505;
 
 void input(){
 	cin >> n >> m;
 }
 
 void solve(){
-	char a[n][m];
-	for(ll i = 0; i < n; i++)for(ll j = 0; j < m; j++)cin >> a[i][j];
-	ll h[nax][nax] = {0}, v[nax][nax] = {0};
-	for(int y = 0; y < n; ++y) for(int x = 0; x < m; ++x) {
-		h[x+1][y+1] = h[x][y+1] + h[x+1][y] - h[x][y];
-		v[x+1][y+1] = v[x][y+1] + v[x+1][y] - v[x][y];
-		if(a[y][x] != '.') continue;
-		if(x != m - 1 && a[y][x+1] == '.') ++h[x+1][y+1];
-		if(y != n - 1 && a[y+1][x] == '.') ++v[x+1][y+1];
+	vector<pll> a(m);
+	for(ll i = 0; i < m; i++)cin >> a[i].f >> a[i].s;
+	ll p[] = {a[0].f,a[0].s} ;
+	for(ll x:p){
+		ll c = 0;
+		vll t(n+1);
+		for(auto it:a){
+			if(it.f == x or it.s == x)continue;
+			c++;
+			t[it.f]++,t[it.s]++;
+		}
+		ll mx = 0;
+		for(auto it:t)mx = max(it,mx);
+		if(mx == c){cout<<"YES";return;}
 	}
-	ll q;
-	cin >> q;
-	while(q--){
-		ll x1, y1, x2, y2;
-		cin >> y1 >> x1 >> y2 >> x2;
-		x1--, y1--;
-		ll ans = 0;
-		ans += h[x2-1][y2] - h[x1][y2] - h[x2-1][y1] + h[x1][y1];
-		ans += v[x2][y2-1] - v[x1][y2-1] - v[x2][y1] + v[x1][y1];
-		cout<<ans<<endl;
-	}
+	cout<<"NO";
 }
 
 int main(){
