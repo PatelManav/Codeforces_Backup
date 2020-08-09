@@ -1,6 +1,6 @@
-300000 5
-1 2
-1 2
-1 2
-1 2
-1 2
+5
+a
+abcdfdcecba
+abbaxyzyx
+codeforces
+acbba
