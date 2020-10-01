@@ -64,7 +64,7 @@ void Solve() {
 // 		i++;
 // 	}
 // 	cout << ans.size() << "\n";
-// 	for(array<int, 2> a:ans)
+// 	for(array<int, 2> a : ans)
 // 		cout << a[0]+1 << " " << a[1]+1 << "\n";
 }
 
