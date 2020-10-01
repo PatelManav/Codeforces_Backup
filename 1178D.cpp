@@ -52,6 +52,20 @@ void Solve() {
 
 	cout << a.size() << endl;
 	for (auto it : a)cout << it.f << " " << it.s << endl;
+// 	int n;
+// 	cin >> n;
+// 	vector<array<int, 2>> ans;
+// 	for(int i=0; i<n; ++i) {
+// 		ans.push_back({i, (i+1)%n});
+// 	}
+// 	int i=0;
+// 	while(c[ans.size()]) {
+// 		ans.push_back({i, i+n/2});
+// 		i++;
+// 	}
+// 	cout << ans.size() << "\n";
+// 	for(array<int, 2> a:ans)
+// 		cout << a[0]+1 << " " << a[1]+1 << "\n";
 }
 
 int main() {
