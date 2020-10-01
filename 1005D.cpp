@@ -39,6 +39,23 @@ void Solve() {
 		else i++;
 	}
 	cout << ans;
+// 	cin >> s;
+// 	ll cnt = 0, sum = 0;
+// 	vector <int> v(3,-2);
+// 	v[0] = 0;
+// 	int dp[s.size()+1] = {0};
+// 	//for(int i = 0; i <n; i++)
+// 	for(int i = 1; i <= s.size(); i++)
+// 	{
+// 		dp[i] = dp[i - 1];
+// 		sum = (sum + s[i - 1] - '0') % 3;
+// 		if(v[sum] != -2)
+// 		{
+// 			dp[i] = max(dp[v[sum]] + 1, dp[i]);
+// 		}
+// 		v[sum] = i;
+// 	}
+// 	cout << dp[s.size()] << "\n";
 }
 
 int main() {
