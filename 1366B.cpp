@@ -42,6 +42,19 @@ void Solve() {
 		}
 	}
 	cout << r - l + 1 << endl;
+// 	int mi = x;
+//         int ma = x;
+//         for(int i=0; i<m; i++) 
+// 	   {
+//	       int l, r;
+//             cin >> l;
+//             cin >> r;
+//             if(l < mi && r >= mi)
+//                 mi=l;
+//             if(r > ma && l<= ma)
+//                 ma = r;
+//         }
+//         cout << ma - mi + 1 << "\n";
 }
 
 int main() {
